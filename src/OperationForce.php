@@ -9,7 +9,6 @@ use SilverStripe\ORM\DataObject;
 /**
  * OperationForce
  *
- * @copyright Copyright (c) wwnorden
  * @package wwn-operations
  * @access public
  */
@@ -41,8 +40,6 @@ class OperationForce extends DataObject
     private static $default_sort = ['Title'];
 
     /**
-     * Übersichtsfelder
-     *
      * @var array $summary_fields
      */
     private static $summary_fields = [

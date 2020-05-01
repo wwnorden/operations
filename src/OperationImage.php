@@ -3,6 +3,7 @@
 namespace WWN\Operations;
 
 use SilverStripe\Assets\Image;
+use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
@@ -17,15 +18,11 @@ use SilverStripe\Security\PermissionProvider;
 class OperationImage extends DataObject implements PermissionProvider
 {
     /**
-     * Datenbank Tabellenname
-     *
      * @var string
      */
     private static $table_name = 'WWNOperationImage';
 
     /**
-     * Datenbankfelder
-     *
      * @var array $db
      */
     private static $db = array(
@@ -35,8 +32,6 @@ class OperationImage extends DataObject implements PermissionProvider
     );
 
     /**
-     * 1:1 verknüpfte Objekte
-     *
      * @var array $has_one
      */
     private static $has_one = array(
@@ -45,15 +40,11 @@ class OperationImage extends DataObject implements PermissionProvider
     );
 
     /**
-     * Felder für Standardsortierung
-     *
      * @var string|array $default_sort
      */
     private static $default_sort = 'SortOrder';
 
     /**
-     * Feldbezeichnungen anpassen
-     *
      * @var array $field_labels
      */
     private static $field_labels = array(
@@ -62,8 +53,6 @@ class OperationImage extends DataObject implements PermissionProvider
     );
 
     /**
-     * Suchefelder
-     *
      * @var array $searchable_fields
      */
     private static $searchable_fields = array(
@@ -71,8 +60,6 @@ class OperationImage extends DataObject implements PermissionProvider
     );
 
     /**
-     * Felder in der Übersicht
-     *
      * @var array $summary_fields
      */
     private static $summary_fields = array(
@@ -88,9 +75,9 @@ class OperationImage extends DataObject implements PermissionProvider
     ];
 
     /**
-     * @return \SilverStripe\Forms\FieldList
+     * @return FieldList
      */
-    public function getCMSFields()
+    public function getCMSFields(): FieldList
     {
         $fields = parent::getCMSFields();
         $fields->removeByName('OperationArticleID');
@@ -102,11 +89,16 @@ class OperationImage extends DataObject implements PermissionProvider
     /**
      * @return Image
      */
-    public function getThumbnail()
+    public function getThumbnail(): Image
     {
         return $this->Image()->CMSThumbnail();
     }
 
+    /**
+     * @param null $member
+     *
+     * @return bool|int
+     */
     public function canView($member = null)
     {
         if (!$member) {
@@ -115,6 +107,11 @@ class OperationImage extends DataObject implements PermissionProvider
         return Permission:: checkMember($member, 'OPERATIONIMAGE_VIEW');
     }
 
+    /**
+     * @param bool $member
+     *
+     * @return bool|int
+     */
     public function canEdit($member = false)
     {
         if (!$member) {
@@ -123,6 +120,12 @@ class OperationImage extends DataObject implements PermissionProvider
         return Permission:: checkMember($member, 'OPERATIONIMAGE_EDIT');
     }
 
+    /**
+     * @param bool  $member
+     * @param array $context
+     *
+     * @return bool|int
+     */
     public function canCreate($member = false, $context = array())
     {
         if (!$member) {
@@ -131,15 +134,23 @@ class OperationImage extends DataObject implements PermissionProvider
         return Permission:: checkMember($member, 'OPERATIONIMAGE_CREATE');
     }
 
+    /**
+     * @param bool $member
+     *
+     * @return bool|int
+     */
     public function canDelete($member = false)
     {
         if (!$member) {
-            $member = Member:: currentUser();
+            $member = Member::currentUser();
         }
         return Permission:: checkMember($member, 'OPERATIONIMAGE_DELETE');
     }
 
-    public function providePermissions()
+    /**
+     * @return string[]
+     */
+    public function providePermissions(): array
     {
         return array(
             'OPERATIONIMAGE_VIEW' => 'Einsatzbilder ansehen',
@@ -150,7 +161,7 @@ class OperationImage extends DataObject implements PermissionProvider
     }
 
     /**
-     * Erlaubt das nachträgliche publishen von Bildern aufgrund eines Bugs
+     * publish images after creation
      */
     public function onAfterWrite()
     {

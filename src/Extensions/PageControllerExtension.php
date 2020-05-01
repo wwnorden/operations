@@ -8,20 +8,24 @@ use SilverStripe\ORM\DataObject;
 use WWN\Operations\OperationArticle;
 
 /**
- * Erweiterung Page-Controller
+ * Extension Page-Controller
  *
- * @copyright Copyright (c) wwnorden
  * @package wwn-operations
  * @access public
  */
 class PageControllerExtension extends Extension
 {
     /**
-     * @return \SilverStripe\ORM\DataList
+     * @return DataList
      */
     public function GetLatestOperation(): ?DataList
     {
-        $article = DataObject::get(OperationArticle::class, '', 'Date DESC', '', 1);
+        $article = DataObject::get(
+            OperationArticle::class,
+            '',
+            'Date DESC',
+            '',
+            1);
         return $article;
     }
 }

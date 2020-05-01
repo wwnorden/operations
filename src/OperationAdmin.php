@@ -5,9 +5,8 @@ namespace WWN\Operations;
 use SilverStripe\Admin\ModelAdmin;
 
 /**
- * Administration Einsätze
+ * Administration operations
  *
- * @copyright Copyright (c) wwnorden
  * @package wwn-operations
  * @access public
  */
@@ -15,7 +14,6 @@ class OperationAdmin extends ModelAdmin
 {
     /**
      * menuicon svg
-     *
      */
     private static $menu_icon_class = 'font-icon-rocket';
 

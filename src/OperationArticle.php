@@ -10,7 +10,6 @@ use SilverStripe\ORM\DataObject;
 /**
  * OperationArticle
  *
- * @copyright Copyright (c) wwnorden
  * @package wwn-operations
  * @access public
  */
@@ -49,7 +48,10 @@ class OperationArticle extends DataObject
     private static $indexes = [
         'SearchFields' => [
             'type' => 'fulltext',
-            'columns' => ['Title', 'Content'],
+            'columns' => [
+                'Title',
+                'Content',
+            ],
         ]
     ];
 
@@ -101,17 +103,16 @@ class OperationArticle extends DataObject
     }
 
     /**
-     * Felder der Eingabemaske
-     *
      * @return FieldList $fields Felder
      */
     public function getCMSFields(): FieldList
     {
         $fields = parent::getCMSFields();
 
-        // Inhalt
         $fields->findOrMakeTab('Root.ContentTab', _t('Tab.Content', 'Inhalt'));
-        $contentFields = ['Content' => $fields->fieldByName('Root.Main.Content')];
+        $contentFields = [
+            'Content' => $fields->fieldByName('Root.Main.Content')
+        ];
         $fields->addFieldsToTab('Root.ContentTab', $contentFields);
 
         return $fields;

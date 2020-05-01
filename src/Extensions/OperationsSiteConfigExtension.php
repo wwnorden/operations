@@ -10,9 +10,8 @@ use SilverStripe\Forms\TreeDropdownField;
 use SilverStripe\ORM\DataExtension;
 
 /**
- * Einstellungen Operations
+ * Siteconfig for operations
  *
- * @copyright Copyright (c) wwnorden
  * @package wwn-operations
  * @access public
  */
@@ -41,7 +40,10 @@ class OperationsSiteConfigExtension extends DataExtension
      */
     public function updateCMSFields(FieldList $fields)
     {
-        $fields->findOrMakeTab('Root.Uploads', _t('OperationAdmin.SITECONFIGMENUTITLE', 'Uploads'));
+        $fields->findOrMakeTab(
+            'Root.Uploads',
+            _t('OperationAdmin.SITECONFIGMENUTITLE', 'Uploads')
+        );
         $operationsFields = array(
             'OperationsImageUploadFolderID' => TreeDropdownField::create(
                 'OperationsImageUploadFolderID',

@@ -2,17 +2,18 @@
 
 namespace WWN\Operations;
 
+use Exception;
 use SilverStripe\Core\Convert;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\DB;
+use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\ORM\PaginatedList;
 use SilverStripe\View\ArrayData;
 
 /**
- * OperationsPage Controller
+ * OperationsPage controller
  *
- * @copyright Copyright (c) wwnorden
  * @package wwn-operations
  * @access public
  */
@@ -27,10 +28,10 @@ class OperationPageController extends \PageController
     ];
 
     /**
-     * Gibt alle Einsätze pro Jahr paginiert zurück
+     * all operations per given year
      *
      * @return PaginatedList
-     * @throws \Exception
+     * @throws Exception
      */
     public function PaginatedOperations()
     {
@@ -39,7 +40,7 @@ class OperationPageController extends \PageController
         );
         try {
             $articles = DataObject::get(OperationArticle::class, $filter, 'Begin DESC');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage();
         }
         return new PaginatedList($articles, $this->getRequest());
@@ -74,8 +75,8 @@ class OperationPageController extends \PageController
     }
 
     /**
-     * @return \SilverStripe\ORM\FieldType\DBHTMLText
-     * @throws \Exception
+     * @return DBHTMLText
+     * @throws Exception
      */
     public function showOperationsPerYear()
     {
@@ -97,10 +98,9 @@ class OperationPageController extends \PageController
     }
 
     /**
-     * Cover image
-     *
      * @param $year
-     * @return DataObject
+     *
+     * @return DataObject|null
      */
     private function getCoverImage($year)
     {
@@ -109,7 +109,10 @@ class OperationPageController extends \PageController
             'WWNOperationImage.Cover' => true,
         );
         $image = DataObject::get(OperationImage::class)
-            ->leftJoin('WWNOperationArticle', "\"WWNOperationArticle\".\"ID\" = \"WWNOperationImage\".\"OperationArticleID\"")
+            ->leftJoin(
+                'WWNOperationArticle',
+                "\"WWNOperationArticle\".\"ID\" = \"WWNOperationImage\".\"OperationArticleID\""
+            )
             ->where($filter)
             ->first();
         return $image;

@@ -9,7 +9,6 @@ use SilverStripe\ORM\DataObject;
 /**
  * OperationLink
  *
- * @copyright Copyright (c) wwnorden
  * @package wwn-operations
  * @access public
  */
