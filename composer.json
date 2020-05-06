@@ -5,7 +5,8 @@
         "silverstripe",
         "operations",
         "alerts",
-        "incidents"
+        "incidents",
+        "einsätze"
     ],
     "type": "silverstripe-vendormodule",
     "require": {
