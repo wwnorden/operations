@@ -3,6 +3,7 @@
 namespace WWN\Operations;
 
 use Exception;
+use PageController;
 use SilverStripe\Core\Convert;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
@@ -15,12 +16,12 @@ use SilverStripe\View\ArrayData;
  * OperationsPage controller
  *
  * @package wwn-operations
- * @access public
+ * @access  public
  */
-class OperationPageController extends \PageController
+class OperationPageController extends PageController
 {
     private static $allowed_actions = [
-        'showOperationsPerYear'
+        'showOperationsPerYear',
     ];
 
     private static $url_handlers = [
@@ -36,13 +37,16 @@ class OperationPageController extends \PageController
     public function PaginatedOperations()
     {
         $filter = array(
-            'YEAR(Date)' => Convert::raw2sql($this->getRequest()->param('Year'))
+            'YEAR(Date)' => Convert::raw2sql($this->getRequest()
+                ->param('Year')),
         );
         try {
-            $articles = DataObject::get(OperationArticle::class, $filter, 'Begin DESC');
+            $articles =
+                DataObject::get(OperationArticle::class, $filter, 'Begin DESC');
         } catch (Exception $e) {
-            echo 'Message: ' . $e->getMessage();
+            echo 'Message: '.$e->getMessage();
         }
+
         return new PaginatedList($articles, $this->getRequest());
     }
 
@@ -71,6 +75,7 @@ class OperationPageController extends \PageController
                 )
             );
         }
+
         return $operationsPerYear;
     }
 
@@ -78,20 +83,20 @@ class OperationPageController extends \PageController
      * @return DBHTMLText
      * @throws Exception
      */
-    public function showOperationsPerYear()
+    public function showOperationsPerYear(): DBHTMLText
     {
         $year = Convert::raw2sql($this->getRequest()->param('Year'));
         $customise = array(
             'ExtraBreadcrumb' => ArrayData::create(array(
                 'Title' => $year,
-                'Link' => $this->Link($year)
+                'Link' => $this->Link($year),
             )),
             'Year' => $year,
             'PaginatedOperations' => $this->PaginatedOperations(),
         );
         $renderWith = array(
             'WWN/Operations/OperationsPerYear',
-            'Page'
+            'Page',
         );
 
         return $this->customise($customise)->renderWith($renderWith);
@@ -102,19 +107,18 @@ class OperationPageController extends \PageController
      *
      * @return DataObject|null
      */
-    private function getCoverImage($year)
+    private function getCoverImage($year): ?DataObject
     {
         $filter = array(
             'YEAR(WWNOperationArticle.Date)' => $year,
             'WWNOperationImage.Cover' => true,
         );
-        $image = DataObject::get(OperationImage::class)
+        return DataObject::get(OperationImage::class)
             ->leftJoin(
                 'WWNOperationArticle',
                 "\"WWNOperationArticle\".\"ID\" = \"WWNOperationImage\".\"OperationArticleID\""
             )
             ->where($filter)
             ->first();
-        return $image;
     }
 }

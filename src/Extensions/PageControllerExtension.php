@@ -16,16 +16,17 @@ use WWN\Operations\OperationArticle;
 class PageControllerExtension extends Extension
 {
     /**
-     * @return DataList
+     * @param int $limit
+     *
+     * @return DataList|null
      */
-    public function GetLatestOperation(): ?DataList
+    public function GetLatestOperation($limit = 1): ?DataList
     {
-        $article = DataObject::get(
+        return DataObject::get(
             OperationArticle::class,
             '',
             'Date DESC',
             '',
-            1);
-        return $article;
+            $limit);
     }
 }

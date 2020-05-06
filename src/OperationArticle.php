@@ -103,7 +103,7 @@ class OperationArticle extends DataObject
     }
 
     /**
-     * @return FieldList $fields Felder
+     * @return FieldList $fields
      */
     public function getCMSFields(): FieldList
     {
