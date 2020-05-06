@@ -1,7 +1,7 @@
 <section class="wrapper">
     <div class="inner">
         <%-- Breadcrumbs --%>
-        <% include Breadcrumbs %>
+        <% include BreadCrumbs %>
         <hr>
 
         <h1>$Headline.RAW $Year</h1>
@@ -14,17 +14,17 @@
         <% if $PaginatedOperations %>
             <% loop $PaginatedOperations %>
                 <h3 id="operation-$ID">$Title.RAW</h3>
-                <p><strong>Nr.</strong> $Number |
-                    <strong>Datum</strong> $Date.Format('dd.MM.y') |
-                    <strong>Beginn</strong> $Begin.Format('HH:mm') Uhr |
-                    <strong>Ende</strong> $End.Format('HH:mm') Uhr
+                <p><strong><% _t('WWN\Operations\OperationArticle.db_Number','Number') %></strong> $Number |
+                    <strong><% _t('WWN\Operations\OperationArticle.db_Date','Date') %></strong> $Date.Format('dd.MM.y') |
+                    <strong><% _t('WWN\Operations\OperationArticle.db_Begin','Begin') %></strong> $Begin.Format('HH:mm') <% _t('WWN\Operations\OperationArticle.clock','oclock') %> |
+                    <strong><% _t('WWN\Operations\OperationArticle.db_End','End') %></strong> $End.Format('HH:mm') <% _t('WWN\Operations\OperationArticle.clock','oclock') %>
                     <% if $People %>
-                        | <strong><i class="fas" title="$People Kameraden/innen">&#xf0c0;</i>&nbsp; $People</strong>
+                        | <strong><i class="fas" title="$People <% _t('WWN\Operations\OperationArticle.db_People','People') %>">&#xf0c0;</i>&nbsp; $People</strong>
                     <% end_if %>
                 </p>
                 <p>$Content</p>
                 <% if $OperationForces %>
-                    <p><strong>Einsatzkräfte</strong></p>
+                    <p><strong><% _t('WWN\Operations\OperationArticle.many_many_OperationForces','Operation forces') %></strong></p>
                     <ul class="actions">
                         <% loop $OperationForces %>
                             <li class="margin-bottom">
@@ -38,7 +38,7 @@
                     </ul>
                 <% end_if %>
                 <% if $Links %>
-                    <p><strong>Links</strong></p>
+                    <p><strong><% _t('WWN\Operations\OperationArticle.has_many_Links','Links') %></strong></p>
                     <ul class="actions">
                         <% loop $Links %>
                             <li class="margin-bottom">
@@ -48,7 +48,7 @@
                     </ul>
                 <% end_if %>
                 <% if $OperationImages %>
-                    <p><strong>Bilder</strong></p>
+                    <p><strong><% _t('WWN\Operations\OperationArticle.has_many_OperationImages','Images') %></strong></p>
                     <div id="$ID">
                         <% loop $OperationImages %>
                             <a href="$Image.URL" alt="$Title" title="$Title">
@@ -70,7 +70,7 @@
 
             <% if $PaginatedOperations.MoreThanOnePage %>
                 <% if $PaginatedOperations.NotFirstPage %>
-                    <a class="prev button alt small" href="$PaginatedOperations.PrevLink">Vorherige</a>
+                    <a class="prev button alt small" href="$PaginatedOperations.PrevLink"><% _t('WWN\Operations\OperationArticle.prev','Previous') %></a>
                 <% end_if %>
                 <% loop $PaginatedOperations.PaginationSummary %>
                     <% if $CurrentBool %>
@@ -84,7 +84,7 @@
                     <% end_if %>
                 <% end_loop %>
                 <% if $PaginatedOperations.NotLastPage %>
-                    <a class="next button alt small" href="$PaginatedOperations.NextLink">Nächste</a>
+                    <a class="next button alt small" href="$PaginatedOperations.NextLink"><% _t('WWN\Operations\OperationArticle.next','Next') %></a>
                 <% end_if %>
             <% end_if %>
         <% end_if %>

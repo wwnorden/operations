@@ -40,31 +40,61 @@ class OperationsSiteConfigExtension extends DataExtension
      */
     public function updateCMSFields(FieldList $fields)
     {
+        Folder::find_or_make(
+            _t(
+                'WWN\Operations\Extensions\OperationsSiteConfigExtension.Foldername',
+                'Foldername'
+            )
+        );
+
         $fields->findOrMakeTab(
             'Root.Uploads',
-            _t('OperationAdmin.SITECONFIGMENUTITLE', 'Uploads')
+            _t(
+                'WWN\Operations\Extensions\OperationsSiteConfigExtension.SITECONFIGMENUTITLE',
+                'Uploads'
+            )
         );
         $operationsFields = array(
             'OperationsImageUploadFolderID' => TreeDropdownField::create(
                 'OperationsImageUploadFolderID',
-                _t('OperationsSiteConfigExtension.has_one_OperationsImageUploadFolder', 'Bilder'),
+                _t(
+                    'WWN\Operations\Extensions\OperationsSiteConfigExtension.has_one_OperationsImageUploadFolder',
+                    'Images'
+                ),
                 Folder::class
             ),
             'OperationsImageUploadFolderByYear' => CheckboxField::create(
                 'OperationsImageUploadFolderByYear',
-                _t('OperationsSiteConfigExtension.db_OperationsImageUploadFolderByYear',
-                    'Unterordner pro Jahr')
+                _t(
+                    'WWN\Operations\Extensions\OperationsSiteConfigExtension.db_OperationsImageUploadFolderByYear',
+                    'Folder by year'
+                )
             ),
         );
         $fields->addFieldsToTab('Root.Uploads', $operationsFields);
         $operationsHeaders = array(
-            'OperationsImageUploadFolderID' => _t('Header.UploadFolders', 'Ordner für Einsatzbilder')
+            'OperationsImageUploadFolderID' => _t(
+                'WWN\Operations\Extensions\OperationsSiteConfigExtension.UploadFolders',
+                'Upload folders'
+            )
         );
         foreach ($operationsHeaders as $insertBefore => $header) {
             $fields->addFieldToTab(
                 'Root.Uploads',
                 HeaderField::create($insertBefore . 'Header', $header),
                 $insertBefore
+            );
+        }
+    }
+
+    public function onBeforeWrite()
+    {
+        if ($this->owner->OperationsImageUploadFolderByYear) {
+            Folder::find_or_make(
+                _t(
+                    'WWN\Operations\Extensions\OperationsSiteConfigExtension.Foldername',
+                    'Foldername'
+                ).'\\'.date('Y')
             );
         }
     }

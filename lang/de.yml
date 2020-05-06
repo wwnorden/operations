@@ -15,6 +15,9 @@ de:
     has_many_Links: 'Links'
     has_many_OperationImages: 'Einsatzbilder'
     many_many_OperationForces: 'Einsatzkräfte'
+    clock: 'Uhr'
+    prev: 'Vorherige'
+    next: 'Nächste'
     PLURALNAME: 'Einsätze'
     SINGULARNAME: 'Einsatz'
 
@@ -23,6 +26,7 @@ de:
     db_Source: 'Quelle'
     db_Title: 'Titel'
     db_URL: 'URL'
+    Form: 'URL mit http(s) angeben'
     PLURALNAME: 'Links'
     SINGULARNAME: 'Link'
 
@@ -37,8 +41,19 @@ de:
 
   WWN\Operations\OperationForce:
     db_Title: 'Titel'
+    belongs_many_many_OperationArticle: 'Einsätze'
+    Form: 'URL mit http(s) angeben'
     PLURALNAME: 'Einsatzkräfte'
     SINGULARNAME: 'Einsatzkraft'
 
   WWN\Operations\OperationPage:
+    Year: 'Jahr'
+    CountOperations: 'Anzahl Einsätze'
     SINGULARNAME: 'Einsatzseite'
+
+  WWN\Operations\Extensions\OperationsSiteConfigExtension:
+    db_OperationsImageUploadFolderByYear: 'Ordner pro Jahr'
+    SITECONFIGMENUTITLE: 'Uploads'
+    Foldername: 'Einsätze'
+    UploadFolders: 'Ordner für Einsatzbilder'
+    has_one_OperationsImageUploadFolder: 'Bilder'

@@ -41,8 +41,6 @@ class OperationLink extends DataObject
     private static $default_sort = ['Title'];
 
     /**
-     * Übersichtsfelder
-     *
      * @var array $summary_fields
      */
     private static $summary_fields = [
@@ -65,12 +63,13 @@ class OperationLink extends DataObject
     {
         $fields = parent::getCMSFields();
 
-        //Main Tab
         $fields->findOrMakeTab('Root.Main');
         $contentFields = array(
             'URL' => $fields->fieldByName('Root.Main.URL')
         );
-        $contentFields['URL']->setDescription(_t('URL.Form', 'URL mit http(s) angeben'));
+        $contentFields['URL']->setDescription(
+            _t('WWN\Operations\OperationLink.Form', 'URL with http(s)')
+        );
         $fields->addFieldsToTab('Root.Main', $contentFields);
 
         return $fields;

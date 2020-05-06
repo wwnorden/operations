@@ -1,7 +1,7 @@
 <section class="wrapper">
     <div class="inner">
         <%-- Breadcrumbs --%>
-        <% include Breadcrumbs %>
+        <% include BreadCrumbs %>
         <hr>
 
         <% if $Headline %><h1>$Headline.RAW</h1><% end_if %>
@@ -15,17 +15,14 @@
             <div class="columns">
                 <% loop $PaginatedOperationsPerYear %>
                     <div class="column operations-per-year">
-                        <a href="$Top.URLSegment/$Year/">
+                        <a href="$Top.Link$Year/">
                             <% if $Image %>
                                 $Image.Image.Fill(400,300)
-                            <% else %>
-                                <img class="margin-top-7" title="FF Rathmannsdorf-Felmerholz"
-                                     src="$ThemeDir/img/feuerwehr.jpg">
                             <% end_if %>
                         </a>
                         <div class="operations-per-year-infos">
-                            <a href="einsaetze/$Year/">
-                                Jahr $Year | Anzahl Einsätze $Operations
+                            <a href="$Top.Link$Year/">
+                                <% _t('WWN\Operations\OperationPage.Year','Year') %> $Year | <% _t('WWN\Operations\OperationPage.CountOperations','Count operations') %> $Operations
                             </a>
                         </div>
                     </div>
