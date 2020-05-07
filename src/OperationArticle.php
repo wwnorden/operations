@@ -6,6 +6,7 @@ use SilverStripe\Control\Director;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\DataObject;
+use WWN\Vehicles\Vehicle;
 
 /**
  * OperationArticle
@@ -40,6 +41,7 @@ class OperationArticle extends DataObject
 
     private static $many_many = [
         'OperationForces' => OperationForce::class,
+        'Vehicles' => Vehicle::class
     ];
 
     /**

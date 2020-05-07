@@ -15,6 +15,7 @@ de:
     has_many_Links: 'Links'
     has_many_OperationImages: 'Einsatzbilder'
     many_many_OperationForces: 'Einsatzkräfte'
+    many_many_Vehicles: 'Fahrzeuge'
     clock: 'Uhr'
     prev: 'Vorherige'
     next: 'Nächste'

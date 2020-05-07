@@ -15,6 +15,7 @@ de:
     has_many_Links: 'Links'
     has_many_OperationImages: 'Operation images'
     many_many_OperationForces: 'Operation forces'
+    many_many_Vehicles: 'Vehicles'
     clock: 'oclock'
     prev: 'Previous'
     next: 'Next'
