@@ -3,8 +3,10 @@
 namespace WWN\Operations;
 
 use SilverStripe\Assets\Image;
+use SilverStripe\Assets\Storage\DBFile;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\FieldType\DBHTMLText;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\Security\PermissionProvider;
@@ -87,9 +89,9 @@ class OperationImage extends DataObject implements PermissionProvider
     }
 
     /**
-     * @return Image
+     * @return DBFile|DBHTMLText Either a resized thumbnail, or html for a thumbnail icon
      */
-    public function getThumbnail(): Image
+    public function getThumbnail()
     {
         return $this->Image()->CMSThumbnail();
     }
