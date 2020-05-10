@@ -70,9 +70,9 @@ class OperationArticle extends DataObject
      */
     private static $summary_fields = [
         'Number',
-        'BeginFormatted' => 'Begin',
-        'EndFormatted' => 'End',
         'Title',
+        'BeginFormatted',
+        'EndFormatted',
         'People',
     ];
 
@@ -83,6 +83,22 @@ class OperationArticle extends DataObject
         'Title',
         'Content',
     ];
+
+    /**
+     * @param bool $includerelations
+     *
+     * @return array
+     */
+    public function fieldLabels($includerelations = true): array
+    {
+        $labels = parent::fieldLabels(true);
+        $labels['BeginFormatted'] =
+            _t('WWN\Operations\OperationArticle.db_Begin', 'Begin');
+        $labels['EndFormatted'] =
+            _t('WWN\Operations\OperationArticle.db_End', 'End');
+
+        return $labels;
+    }
 
     /**
      * @return DataObject|void
