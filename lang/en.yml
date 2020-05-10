@@ -4,10 +4,8 @@ de:
     SITECONFIGMENUTITLE: 'Uploads'
 
   WWN\Operations\OperationArticle:
-    DateFormatted: 'Date'
     db_Begin: 'Begin'
     db_Content: 'Content'
-    db_Date: 'Date'
     db_End: 'End'
     db_Number: 'Number'
     db_People: 'People'

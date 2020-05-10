@@ -15,7 +15,7 @@
             <% loop $PaginatedOperations %>
                 <h3 id="operation-$ID">$Title.RAW</h3>
                 <p><strong><% _t('WWN\Operations\OperationArticle.db_Number','Number') %></strong> $Number |
-                    <strong><% _t('WWN\Operations\OperationArticle.db_Date','Date') %></strong> $Date.Format('dd.MM.y') |
+                    <strong><% _t('WWN\Operations\OperationArticle.db_Begin','Begin') %></strong> $Begin.Format('dd.MM.y') |
                     <strong><% _t('WWN\Operations\OperationArticle.db_Begin','Begin') %></strong> $Begin.Format('HH:mm') <% _t('WWN\Operations\OperationArticle.clock','oclock') %> |
                     <strong><% _t('WWN\Operations\OperationArticle.db_End','End') %></strong> $End.Format('HH:mm') <% _t('WWN\Operations\OperationArticle.clock','oclock') %>
                     <% if $People %>

@@ -37,7 +37,7 @@ class OperationPageController extends PageController
     public function PaginatedOperations()
     {
         $filter = array(
-            'YEAR(Date)' => Convert::raw2sql($this->getRequest()
+            'YEAR(Begin)' => Convert::raw2sql($this->getRequest()
                 ->param('Year')),
         );
         try {
@@ -58,7 +58,7 @@ class OperationPageController extends PageController
     public function PaginatedOperationsPerYear()
     {
         $result = DB::query(
-            'SELECT YEAR(Date) as Year,
+            'SELECT YEAR(Begin) as Year,
                 COUNT(*) AS Operations
                 FROM WWNOperationArticle
                 GROUP BY year DESC')->map();
@@ -110,7 +110,7 @@ class OperationPageController extends PageController
     private function getCoverImage($year): ?DataObject
     {
         $filter = array(
-            'YEAR(WWNOperationArticle.Date)' => $year,
+            'YEAR(WWNOperationArticle.Begin)' => $year,
             'WWNOperationImage.Cover' => true,
         );
         return DataObject::get(OperationImage::class)

@@ -16,7 +16,6 @@ class OperationsCsvBulkLoader extends CsvBulkLoader
     public $columnMap = [
         'message' => 'Title',
         'description' => 'Content',
-        'date' => 'Date',
         'number' => 'Number',
         'beginning' => '->setBegin',
         'ending' => '->setEnd',
@@ -41,8 +40,7 @@ class OperationsCsvBulkLoader extends CsvBulkLoader
     {
         if (!empty($val)) {
             $format = 'd.m.Y H:i:s';
-            $date = $record['Date'] . ' ' . trim(str_replace('Uhr', '', $val));
-            $date = date($format, strtotime($date));
+            $date = date($format, strtotime($val));
             $obj->Begin = $date;
         }
     }
@@ -51,8 +49,7 @@ class OperationsCsvBulkLoader extends CsvBulkLoader
     {
         if (!empty($val)) {
             $format = 'd.m.Y H:i:s';
-            $date = $record['Date'] . ' ' . trim(str_replace('Uhr', '', $val));
-            $date = date($format, strtotime($date));
+            $date = date($format, strtotime($val));
             $obj->End = $date;
         }
     }

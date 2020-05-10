@@ -25,7 +25,7 @@ class PageControllerExtension extends Extension
         return DataObject::get(
             OperationArticle::class,
             '',
-            'Date DESC',
+            'Begin DESC',
             '',
             $limit);
     }
