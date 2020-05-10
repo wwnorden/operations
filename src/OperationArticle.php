@@ -2,17 +2,18 @@
 
 namespace WWN\Operations;
 
-use SilverStripe\Control\Director;
+use SilverStripe\Forms\DatetimeField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\FieldType\DBDatetime;
 use WWN\Vehicles\Vehicle;
 
 /**
  * OperationArticle
  *
  * @package wwn-operations
- * @access public
+ * @access  public
  */
 class OperationArticle extends DataObject
 {
@@ -27,11 +28,10 @@ class OperationArticle extends DataObject
     private static $db = [
         'Title' => 'Varchar(150)',
         'Content' => 'HTMLText',
-        'Date' => 'Date',
         'Number' => 'Varchar(3)',
         'Begin' => 'DBDatetime',
         'End' => 'DBDatetime',
-        'People' => 'Int'
+        'People' => 'Int',
     ];
 
     private static $has_many = [
@@ -41,7 +41,7 @@ class OperationArticle extends DataObject
 
     private static $many_many = [
         'OperationForces' => OperationForce::class,
-        'Vehicles' => Vehicle::class
+        'Vehicles' => Vehicle::class,
     ];
 
     /**
@@ -54,15 +54,15 @@ class OperationArticle extends DataObject
                 'Title',
                 'Content',
             ],
-        ]
+        ],
     ];
 
     /**
      * @var string $default_sort
      */
     private static $default_sort = [
-        'Date' => 'DESC',
-        'ID' => 'DESC'
+        'Begin' => 'DESC',
+        'ID' => 'DESC',
     ];
 
     /**
@@ -70,20 +70,11 @@ class OperationArticle extends DataObject
      */
     private static $summary_fields = [
         'Number',
-        'DateFormatted' => 'Datum',
+        'BeginFormatted' => 'Begin',
+        'EndFormatted' => 'End',
         'Title',
         'People',
     ];
-
-    /**
-     * format date
-     *
-     * @return false|string
-     */
-    public function getDateFormatted(): ?string
-    {
-        return date('d.m.Y', strtotime($this->dbObject('Date')->getValue()));
-    }
 
     /**
      * @var array $searchable_fields
@@ -99,9 +90,40 @@ class OperationArticle extends DataObject
     public function populateDefaults()
     {
         parent::populateDefaults();
-        $this->Date = date('d.m.Y');
-        $this->Begin = date('d.m.Y h:m:s');
-        $this->End = date('d.m.Y h:m:s');
+        $this->Begin = date('d.m.Y h:m');
+        $this->End = date('d.m.Y h:m');
+    }
+
+    /**
+     * @return false|string
+     */
+    public function getBeginFormatted(): ?string
+    {
+        return $this->formatDateTime('Begin');
+    }
+
+    /**
+     * @return false|string
+     */
+    public function getEndFormatted(): ?string
+    {
+        return $this->formatDateTime('End');
+    }
+
+    /**
+     * @param $field
+     *
+     * @return false|string
+     */
+    private function formatDateTime($field)
+    {
+        return date(
+            _t(
+                'WWN\Operations\OperationArticle.DateTimeFormatList',
+                'm/d/Y H:i'
+            ),
+            strtotime($this->dbObject($field)->getValue())
+        );
     }
 
     /**
@@ -111,13 +133,57 @@ class OperationArticle extends DataObject
     {
         $fields = parent::getCMSFields();
 
-        $fields->findOrMakeTab('Root.ContentTab', _t('Tab.Content', 'Inhalt'));
+        // Content tab
+        $fields->findOrMakeTab(
+            'Root.ContentTab',
+            _t('WWN\Operations\OperationArticle.ContentTab', 'Content')
+        );
         $contentFields = [
-            'Content' => $fields->fieldByName('Root.Main.Content')
+            'Content' => $fields->fieldByName('Root.Main.Content'),
         ];
         $fields->addFieldsToTab('Root.ContentTab', $contentFields);
 
+        // Main tab
+        $mainFields = [
+            'Begin' => $this->configDatetime('Begin'),
+            'End' => $this->configDatetime('End'),
+        ];
+        $fields->addFieldsToTab('Root.Main', $mainFields);
+
         return $fields;
+    }
+
+    /**
+     * @param $field
+     *
+     * @return DatetimeField
+     */
+    private function configDatetime($field): DatetimeField
+    {
+        $dateTimefield = DatetimeField::create(
+            $field,
+            _t('WWN\Operations\OperationArticle.db_'.$field, $field)
+        )
+            ->setHTML5(false)
+            ->setDateTimeFormat(
+                _t(
+                    'WWN\Operations\OperationArticle.DateTimeFormat',
+                    'MM/dd/yyyy HH:mm'
+                )
+            );
+        $dateTimefield->setDescription(
+            _t(
+                'WWN\Operations\OperationArticle.DateTimeDescription',
+                'e.g. {format}',
+                ['format' => $dateTimefield->getDateTimeFormat()]
+            )
+        );
+        $dateTimefield->setAttribute(
+            'placeholder',
+            $dateTimefield->getDateTimeFormat()
+        );
+
+        return $dateTimefield;
     }
 
     /**
@@ -137,8 +203,11 @@ class OperationArticle extends DataObject
     {
         $editLink = false;
         if ($this->canEdit()) {
-            $editLink = Director::baseURL() . 'admin/operations/OperationArticle/EditForm/field/OperationArticle/item/' . $this->ID . '/edit/';
+            $editLink = Director::baseURL()
+                .'admin/operations/OperationArticle/EditForm/field/OperationArticle/item/'
+                .$this->ID.'/edit/';
         }
+
         return $editLink;
     }
 }
