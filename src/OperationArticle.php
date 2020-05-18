@@ -29,6 +29,7 @@ class OperationArticle extends DataObject
         'Title' => 'Varchar(150)',
         'Content' => 'HTMLText',
         'Number' => 'Varchar(3)',
+        'Location' => 'Varchar(255)',
         'Begin' => 'DBDatetime',
         'End' => 'DBDatetime',
         'People' => 'Int',
@@ -73,6 +74,7 @@ class OperationArticle extends DataObject
         'Title',
         'BeginFormatted',
         'EndFormatted',
+        'Location',
         'People',
     ];
 

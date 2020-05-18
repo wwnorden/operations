@@ -8,6 +8,7 @@ de:
     db_Content: 'Content'
     db_End: 'End'
     db_Number: 'Number'
+    db_Location: 'Location'
     db_People: 'People'
     db_Title: 'Title'
     has_many_Links: 'Links'
