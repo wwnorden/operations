@@ -1,0 +1,7 @@
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - WWN\Operations\Extensions\OperationsSiteConfigExtension
+
+PageController:
+  extensions:
+    - WWN\Operations\Extensions\PageControllerExtension

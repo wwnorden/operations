@@ -1,0 +1,63 @@
+de:
+  WWN\Operations\OperationAdmin:
+    MENUTITLE: 'Operations'
+    SITECONFIGMENUTITLE: 'Uploads'
+
+  WWN\Operations\OperationArticle:
+    db_Begin: 'Begin'
+    db_Content: 'Content'
+    db_End: 'End'
+    db_Number: 'Number'
+    db_Location: 'Location'
+    db_People: 'People'
+    db_Title: 'Title'
+    has_many_Links: 'Links'
+    has_many_OperationImages: 'Operation images'
+    many_many_OperationForces: 'Operation forces'
+    many_many_Vehicles: 'Vehicles'
+    clock: 'oclock'
+    ContentTab: 'Content'
+    DateTimeFormat: 'm/d/Y H:m'
+    DateTimeFormatList: 'm/d/Y H:i'
+    DateTimeDateDescription: 'Datetime in the following form {format}'
+    prev: 'Previous'
+    next: 'Next'
+    PLURALNAME: 'Operations'
+    SINGULARNAME: 'Operation'
+
+  WWN\Operations\OperationLink:
+    has_one_OperationArticle: 'Operation'
+    db_Source: 'Source'
+    db_Title: 'Title'
+    db_URL: 'URL'
+    Form: 'URL with http(s)'
+    PLURALNAME: 'Links'
+    SINGULARNAME: 'Link'
+
+  WWN\Operations\OperationImage:
+    db_Cover: 'Cover image of the year'
+    db_SortOrder: 'Sort order'
+    db_Title: 'Title'
+    has_one_Image: 'Image'
+    has_one_OperationArticle: 'Operation'
+    PLURALNAME: 'Operation images'
+    SINGULARNAME: 'Operation image'
+
+  WWN\Operations\OperationForce:
+    db_Title: 'Title'
+    belongs_many_many_OperationArticle: 'Operations'
+    Form: 'URL with http(s)'
+    PLURALNAME: 'Operation forces'
+    SINGULARNAME: 'Operation force'
+
+  WWN\Operations\OperationPage:
+    Year: 'Year'
+    CountOperations: 'Count operations'
+    SINGULARNAME: 'Operation site'
+
+  WWN\Operations\Extensions\OperationsSiteConfigExtension:
+    db_OperationsImageUploadFolderByYear: 'Folder by year'
+    SITECONFIGMENUTITLE: 'Uploads'
+    Foldername: 'Operations'
+    UploadFolders: 'Folder for operation images'
+    has_one_OperationsImageUploadFolder: 'Images'
