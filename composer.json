@@ -6,14 +6,15 @@
         "operations",
         "alerts",
         "incidents",
-        "einsätze"
+        "einsätze",
+        "statistic"
     ],
     "type": "silverstripe-vendormodule",
     "require": {
         "silverstripe/cms": "^4.0",
         "silverstripe/assets": "^1.0",
         "silverstripe/asset-admin": "^1.0",
-        "wwnorden/vehicles": "^1.0.0",
+        "wwnorden/vehicles": "~1.1.0",
         "php": ">=7.2"
     },
     "homepage": "https://github.com/wwnorden/operations",

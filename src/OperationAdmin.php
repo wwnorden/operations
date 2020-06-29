@@ -34,6 +34,7 @@ class OperationAdmin extends ModelAdmin
         'WWN\Operations\OperationArticle',
         'WWN\Operations\OperationLink',
         'WWN\Operations\OperationForce',
+        'WWN\Operations\OperationalStatistics',
     );
 
     private static $model_importers = [

@@ -61,3 +61,11 @@ de:
     Foldername: 'Operations'
     UploadFolders: 'Folder for operation images'
     has_one_OperationsImageUploadFolder: 'Images'
+    
+  WWN\Operations\OperationalStatistics:
+    db_Number: 'Number operations'
+    db_Year: 'Year'
+    YearFormat: 'yyyy'
+    YearDescription: 'Date in the following form {format}'
+    PLURALNAME: 'Operational statistics'
+    SINGULARNAME: 'Operational statistic'

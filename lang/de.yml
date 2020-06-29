@@ -61,3 +61,11 @@ de:
     Foldername: 'Einsätze'
     UploadFolders: 'Ordner für Einsatzbilder'
     has_one_OperationsImageUploadFolder: 'Bilder'
+
+  WWN\Operations\OperationalStatistics:
+    db_Number: 'Anzahl Einsätze'
+    db_Year: 'Jahr'
+    YearFormat: 'yyyy'
+    YearDescription: 'Angabe in folgendem Format {format}'
+    PLURALNAME: 'Einsatzstatistiken'
+    SINGULARNAME: 'Einsatzstatistik'
