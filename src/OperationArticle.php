@@ -152,14 +152,14 @@ class OperationArticle extends DataObject
         $fields = parent::getCMSFields();
 
         // Content tab
-        $fields->findOrMakeTab(
-            'Root.ContentTab',
-            _t('WWN\Operations\OperationArticle.ContentTab', 'Content')
-        );
-        $contentFields = [
-            'Content' => $fields->fieldByName('Root.Main.Content'),
-        ];
-        $fields->addFieldsToTab('Root.ContentTab', $contentFields);
+//        $fields->findOrMakeTab(
+//            'Root.ContentTab',
+//            _t('WWN\Operations\OperationArticle.ContentTab', 'Content')
+//        );
+//        $contentFields = [
+//            'Content' => $fields->fieldByName('Root.Main.Content'),
+//        ];
+//        $fields->addFieldsToTab('Root.ContentTab', $contentFields);
 
         // Main tab
         $mainFields = [
