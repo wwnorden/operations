@@ -163,6 +163,17 @@ class OperationImage extends DataObject implements PermissionProvider
     }
 
     /**
+     * Increment SortOrder on save
+     */
+    public function onBeforeWrite()
+    {
+        if (! $this->SortOrder) {
+            $this->SortOrder = OperationImage::get()->max('SortOrder') + 1;
+        }
+        parent::onBeforeWrite();
+    }
+    
+    /**
      * publish images after creation
      */
     public function onAfterWrite()

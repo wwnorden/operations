@@ -4,9 +4,20 @@ namespace WWN\Operations;
 
 use SilverStripe\Forms\DatetimeField;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
+use SilverStripe\Forms\GridField\GridFieldConfig;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldToolbarHeader;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBDatetime;
+use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
+use Symbiote\GridFieldExtensions\GridFieldTitleHeader;
 use WWN\Vehicles\Vehicle;
 
 /**
@@ -151,22 +162,36 @@ class OperationArticle extends DataObject
     {
         $fields = parent::getCMSFields();
 
-        // Content tab
-//        $fields->findOrMakeTab(
-//            'Root.ContentTab',
-//            _t('WWN\Operations\OperationArticle.ContentTab', 'Content')
-//        );
-//        $contentFields = [
-//            'Content' => $fields->fieldByName('Root.Main.Content'),
-//        ];
-//        $fields->addFieldsToTab('Root.ContentTab', $contentFields);
-
         // Main tab
         $mainFields = [
             'Begin' => $this->configDatetime('Begin'),
             'End' => $this->configDatetime('End'),
         ];
         $fields->addFieldsToTab('Root.Main', $mainFields);
+
+        // sorting images
+        $images = GridField::create(
+            'OperationImages',
+            _t('WWN\Operations\OperationImage.PLURALNAME','Operation images'),
+            $this->OperationImages(),
+            GridFieldConfig::create()->addComponents(
+                new GridFieldToolbarHeader(),
+                new GridFieldAddNewButton('toolbar-header-right'),
+                new GridFieldDetailForm(),
+                new GridFieldDataColumns(),
+                new GridFieldEditButton(),
+                new GridFieldDeleteAction('unlinkrelation'),
+                new GridFieldDeleteAction(),
+                new GridFieldOrderableRows('SortOrder'),
+                new GridFieldTitleHeader(),
+                new GridFieldAddExistingAutocompleter('before', array('Title'))
+            )
+        );
+        $fields->addFieldsToTab('Root.OperationImages',
+            array(
+                $images
+            )
+        );
 
         return $fields;
     }
