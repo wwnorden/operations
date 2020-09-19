@@ -6,6 +6,7 @@
 * SilverStripe Assets 1.0+
 * SilverStripe Asset Admin Module 1.0+
 * wwnorden/vehicles
+* symbiote/silverstripe-gridfieldextensions ^3
 
 ## Installation
 
