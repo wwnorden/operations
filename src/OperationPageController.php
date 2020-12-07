@@ -61,8 +61,8 @@ class OperationPageController extends PageController
             'SELECT YEAR(Begin) as Year,
                 COUNT(*) AS Operations
                 FROM WWNOperationArticle
-                GROUP BY year DESC')
-            ->map();
+                GROUP BY Year
+                ORDER By Year DESC')->map();
 
         $operationsPerYear = new ArrayList();
         foreach ($result as $year => $numberOperations) {
