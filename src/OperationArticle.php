@@ -34,7 +34,7 @@ class OperationArticle extends DataObject
     private static $table_name = 'WWNOperationArticle';
 
     /**
-     * @var array $db
+     * @var string[]
      */
     private static $db = [
         'Title' => 'Varchar(150)',
@@ -46,18 +46,24 @@ class OperationArticle extends DataObject
         'People' => 'Int',
     ];
 
+    /**
+     * @var string[]
+     */
     private static $has_many = [
         'Links' => OperationLink::class,
         'OperationImages' => OperationImage::class,
     ];
 
+    /**
+     * @var string[]
+     */
     private static $many_many = [
         'OperationForces' => OperationForce::class,
         'Vehicles' => Vehicle::class,
     ];
 
     /**
-     * @var array $indexes
+     * @var array[]
      */
     private static $indexes = [
         'SearchFields' => [
@@ -70,7 +76,7 @@ class OperationArticle extends DataObject
     ];
 
     /**
-     * @var string $default_sort
+     * @var string[]
      */
     private static $default_sort = [
         'Begin' => 'DESC',
@@ -78,7 +84,7 @@ class OperationArticle extends DataObject
     ];
 
     /**
-     * @var array $summary_fields
+     * @var string[]
      */
     private static $summary_fields = [
         'Number',
@@ -90,7 +96,7 @@ class OperationArticle extends DataObject
     ];
 
     /**
-     * @var array $searchable_fields
+     * @var string[]
      */
     private static $searchable_fields = [
         'Title',
@@ -172,7 +178,7 @@ class OperationArticle extends DataObject
         // sorting images
         $images = GridField::create(
             'OperationImages',
-            _t('WWN\Operations\OperationImage.PLURALNAME','Operation images'),
+            _t('WWN\Operations\OperationImage.PLURALNAME', 'Operation images'),
             $this->OperationImages(),
             GridFieldConfig::create()->addComponents(
                 new GridFieldToolbarHeader(),
@@ -189,7 +195,7 @@ class OperationArticle extends DataObject
         );
         $fields->addFieldsToTab('Root.OperationImages',
             array(
-                $images
+                $images,
             )
         );
 
