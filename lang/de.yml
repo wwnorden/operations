@@ -11,6 +11,7 @@ de:
     db_Number: 'Nummer'
     db_People: 'Kameraden/innen'
     db_Title: 'Titel'
+    has_one_OperationType: 'Einsatzart'
     has_many_Links: 'Links'
     has_many_OperationImages: 'Einsatzbilder'
     many_many_OperationForces: 'Einsatzkräfte'

@@ -11,6 +11,7 @@ de:
     db_Location: 'Location'
     db_People: 'People'
     db_Title: 'Title'
+    has_one_OperationType: 'Operation type'
     has_many_Links: 'Links'
     has_many_OperationImages: 'Operation images'
     many_many_OperationForces: 'Operation forces'
