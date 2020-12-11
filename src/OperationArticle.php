@@ -49,6 +49,13 @@ class OperationArticle extends DataObject
     /**
      * @var string[]
      */
+    private static $has_one = [
+        'OperationType' => OperationType::class,
+    ];
+
+    /**
+     * @var string[]
+     */
     private static $has_many = [
         'Links' => OperationLink::class,
         'OperationImages' => OperationImage::class,
