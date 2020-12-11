@@ -69,3 +69,11 @@ de:
     YearDescription: 'Angabe in folgendem Format {format}'
     PLURALNAME: 'Einsatzstatistiken'
     SINGULARNAME: 'Einsatzstatistik'
+
+  WWN\Operations\OperationType:
+    db_Title: 'Titel'
+    db_SortOrder: 'Sortierung'
+    has_one_Image: 'Bild'
+    has_many_OperationArticle: 'Einsätze'
+    PLURALNAME: 'Einsatzarten'
+    SINGULARNAME: 'Einsatzart'

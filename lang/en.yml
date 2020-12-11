@@ -69,3 +69,11 @@ de:
     YearDescription: 'Date in the following form {format}'
     PLURALNAME: 'Operational statistics'
     SINGULARNAME: 'Operational statistic'
+
+  WWN\Operations\OperationType:
+    db_Title: 'Title'
+    db_SortOrder: 'Sort order'
+    has_one_Image: 'Image'
+    has_many_OperationArticle: 'Operation articles'
+    PLURALNAME: 'Operation types'
+    SINGULARNAME: 'Operation type'
