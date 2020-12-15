@@ -12,33 +12,38 @@ use SilverStripe\Security\Permission;
 use SilverStripe\Security\PermissionProvider;
 
 /**
- * OperationImage
+ * OperationType
  *
  * @package wwn-operations
- * @access  public
+ * @access public
  */
-class OperationImage extends DataObject implements PermissionProvider
+class OperationType extends DataObject implements PermissionProvider
 {
     /**
      * @var string
      */
-    private static $table_name = 'WWNOperationImage';
+    private static $table_name = 'WWNOperationType';
 
     /**
      * @var string[]
      */
     private static $db = [
-        'Title' => 'Varchar(100)',
+        'Title' => 'Varchar(255)',
         'SortOrder' => 'Int',
-        'Cover' => 'Boolean',
     ];
 
     /**
      * @var string[]
      */
     private static $has_one = [
-        'OperationArticle' => OperationArticle::class,
         'Image' => Image::class,
+    ];
+
+    /**
+     * @var string[]
+     */
+    private static $has_many = [
+        'OperationArticle' => OperationArticle::class,
     ];
 
     /**
@@ -82,7 +87,6 @@ class OperationImage extends DataObject implements PermissionProvider
     public function getCMSFields(): FieldList
     {
         $fields = parent::getCMSFields();
-        $fields->removeByName('OperationArticleID');
         $fields->removeByName('SortOrder');
 
         $image = $fields->dataFieldByName('Image');
@@ -90,7 +94,7 @@ class OperationImage extends DataObject implements PermissionProvider
             _t(
                 'WWN\Operations\Extensions\OperationsSiteConfigExtension',
                 'Foldername'
-            ).'/'.str_replace('/', '-', $this->OperationArticle->Number.'-'.$this->OperationArticle->Title)
+            ).'/'.str_replace('/', '-', $this->Title)
         );
 
         return $fields;
@@ -103,7 +107,7 @@ class OperationImage extends DataObject implements PermissionProvider
     {
         return $this->Image()->CMSThumbnail();
     }
-
+    
     /**
      * @param null $member
      *
@@ -111,11 +115,10 @@ class OperationImage extends DataObject implements PermissionProvider
      */
     public function canView($member = null)
     {
-        if (! $member) {
+        if (!$member) {
             $member = Member:: currentUser();
         }
-
-        return Permission:: checkMember($member, 'OPERATIONIMAGE_VIEW');
+        return Permission:: checkMember($member, 'OPERATIONTYPE_VIEW');
     }
 
     /**
@@ -125,11 +128,10 @@ class OperationImage extends DataObject implements PermissionProvider
      */
     public function canEdit($member = false)
     {
-        if (! $member) {
+        if (!$member) {
             $member = Member:: currentUser();
         }
-
-        return Permission:: checkMember($member, 'OPERATIONIMAGE_EDIT');
+        return Permission:: checkMember($member, 'OPERATIONTYPE_EDIT');
     }
 
     /**
@@ -140,11 +142,10 @@ class OperationImage extends DataObject implements PermissionProvider
      */
     public function canCreate($member = false, $context = [])
     {
-        if (! $member) {
+        if (!$member) {
             $member = Member:: currentUser();
         }
-
-        return Permission:: checkMember($member, 'OPERATIONIMAGE_CREATE');
+        return Permission:: checkMember($member, 'OPERATIONTYPE_CREATE');
     }
 
     /**
@@ -154,11 +155,10 @@ class OperationImage extends DataObject implements PermissionProvider
      */
     public function canDelete($member = false)
     {
-        if (! $member) {
+        if (!$member) {
             $member = Member::currentUser();
         }
-
-        return Permission:: checkMember($member, 'OPERATIONIMAGE_DELETE');
+        return Permission:: checkMember($member, 'OPERATIONTYPE_DELETE');
     }
 
     /**
@@ -167,10 +167,10 @@ class OperationImage extends DataObject implements PermissionProvider
     public function providePermissions(): array
     {
         return [
-            'OPERATIONIMAGE_VIEW' => 'Einsatzbilder ansehen',
-            'OPERATIONIMAGE_EDIT' => 'Einsatzbilder bearbeiten',
-            'OPERATIONIMAGE_CREATE' => 'Einsatzbilder erstellen',
-            'OPERATIONIMAGE_DELETE' => 'Einsatzbilder löschen',
+            'OPERATIONTYPE_VIEW' => 'View operation type',
+            'OPERATIONTYPE_EDIT' => 'Edit operation type',
+            'OPERATIONTYPE_CREATE' => 'Create operation type',
+            'OPERATIONTYPE_DELETE' => 'Delete operation type'
         ];
     }
 
@@ -180,11 +180,11 @@ class OperationImage extends DataObject implements PermissionProvider
     public function onBeforeWrite()
     {
         if (! $this->SortOrder) {
-            $this->SortOrder = OperationImage::get()->max('SortOrder') + 1;
+            $this->SortOrder = OPERATIONTYPE::get()->max('SortOrder') + 1;
         }
         parent::onBeforeWrite();
     }
-
+    
     /**
      * publish images after creation
      */

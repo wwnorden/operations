@@ -11,6 +11,7 @@ de:
     db_Location: 'Location'
     db_People: 'People'
     db_Title: 'Title'
+    has_one_OperationType: 'Operation type'
     has_many_Links: 'Links'
     has_many_OperationImages: 'Operation images'
     many_many_OperationForces: 'Operation forces'
@@ -69,3 +70,11 @@ de:
     YearDescription: 'Date in the following form {format}'
     PLURALNAME: 'Operational statistics'
     SINGULARNAME: 'Operational statistic'
+
+  WWN\Operations\OperationType:
+    db_Title: 'Title'
+    db_SortOrder: 'Sort order'
+    has_one_Image: 'Image'
+    has_many_OperationArticle: 'Operation articles'
+    PLURALNAME: 'Operation types'
+    SINGULARNAME: 'Operation type'
