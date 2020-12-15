@@ -49,13 +49,6 @@ class OperationArticle extends DataObject
     /**
      * @var string[]
      */
-    private static $has_one = [
-        'OperationType' => OperationType::class,
-    ];
-
-    /**
-     * @var string[]
-     */
     private static $has_many = [
         'Links' => OperationLink::class,
         'OperationImages' => OperationImage::class,
@@ -137,7 +130,7 @@ class OperationArticle extends DataObject
     }
 
     /**
-     * @return false|string
+     * @return string|null
      */
     public function getBeginFormatted(): ?string
     {
@@ -145,7 +138,7 @@ class OperationArticle extends DataObject
     }
 
     /**
-     * @return false|string
+     * @return string|null
      */
     public function getEndFormatted(): ?string
     {
@@ -185,7 +178,7 @@ class OperationArticle extends DataObject
         // sorting images
         $images = GridField::create(
             'OperationImages',
-            _t('WWN\Operations\OperationImage.PLURALNAME', 'Operation images'),
+            _t('WWN\Operations\OperationImage.PLURALNAME','Operation images'),
             $this->OperationImages(),
             GridFieldConfig::create()->addComponents(
                 new GridFieldToolbarHeader(),
@@ -197,13 +190,13 @@ class OperationArticle extends DataObject
                 new GridFieldDeleteAction(),
                 new GridFieldOrderableRows('SortOrder'),
                 new GridFieldTitleHeader(),
-                new GridFieldAddExistingAutocompleter('before', array('Title'))
+                new GridFieldAddExistingAutocompleter('before', ['Title'])
             )
         );
         $fields->addFieldsToTab('Root.OperationImages',
-            array(
-                $images,
-            )
+            [
+                $images
+            ]
         );
 
         return $fields;
