@@ -89,6 +89,14 @@ class OperationType extends DataObject implements PermissionProvider
         $fields = parent::getCMSFields();
         $fields->removeByName('SortOrder');
 
+        $image = $fields->dataFieldByName('Image');
+        $image->setFolderName(
+            _t(
+                'WWN\Operations\Extensions\OperationsSiteConfigExtension',
+                'Foldername'
+            ).'/'.str_replace('/', '-', $this->Title)
+        );
+
         return $fields;
     }
 
