@@ -15,7 +15,7 @@ use SilverStripe\Security\PermissionProvider;
  * OperationImage
  *
  * @package wwn-operations
- * @access public
+ * @access  public
  */
 class OperationImage extends DataObject implements PermissionProvider
 {
@@ -25,52 +25,52 @@ class OperationImage extends DataObject implements PermissionProvider
     private static $table_name = 'WWNOperationImage';
 
     /**
-     * @var array $db
+     * @var string[]
      */
-    private static $db = array(
+    private static $db = [
         'Title' => 'Varchar(100)',
         'SortOrder' => 'Int',
         'Cover' => 'Boolean',
-    );
+    ];
 
     /**
-     * @var array $has_one
+     * @var string[]
      */
-    private static $has_one = array(
+    private static $has_one = [
         'OperationArticle' => OperationArticle::class,
         'Image' => Image::class,
-    );
+    ];
 
     /**
-     * @var string|array $default_sort
+     * @var string
      */
     private static $default_sort = 'SortOrder';
 
     /**
-     * @var array $field_labels
+     * @var string[]
      */
-    private static $field_labels = array(
+    private static $field_labels = [
         'Title' => 'Titel',
         'Thumbnail' => 'Vorschau',
-    );
+    ];
 
     /**
-     * @var array $searchable_fields
+     * @var string[]
      */
-    private static $searchable_fields = array(
+    private static $searchable_fields = [
         'Title',
-    );
+    ];
 
     /**
-     * @var array $summary_fields
+     * @var string[]
      */
-    private static $summary_fields = array(
+    private static $summary_fields = [
         'Title',
         'Thumbnail',
-    );
+    ];
 
     /**
-     * @var array $owns
+     * @var string[]
      */
     private static $owns = [
         'Image',
@@ -84,6 +84,14 @@ class OperationImage extends DataObject implements PermissionProvider
         $fields = parent::getCMSFields();
         $fields->removeByName('OperationArticleID');
         $fields->removeByName('SortOrder');
+
+        $image = $fields->dataFieldByName('Image');
+        $image->setFolderName(
+            _t(
+                'WWN\Operations\Extensions\OperationsSiteConfigExtension',
+                'Foldername'
+            ).'/'.str_replace('/', '-', $this->OperationArticle->Number.'-'.$this->OperationArticle->Title)
+        );
 
         return $fields;
     }
@@ -103,9 +111,10 @@ class OperationImage extends DataObject implements PermissionProvider
      */
     public function canView($member = null)
     {
-        if (!$member) {
+        if (! $member) {
             $member = Member:: currentUser();
         }
+
         return Permission:: checkMember($member, 'OPERATIONIMAGE_VIEW');
     }
 
@@ -116,9 +125,10 @@ class OperationImage extends DataObject implements PermissionProvider
      */
     public function canEdit($member = false)
     {
-        if (!$member) {
+        if (! $member) {
             $member = Member:: currentUser();
         }
+
         return Permission:: checkMember($member, 'OPERATIONIMAGE_EDIT');
     }
 
@@ -128,11 +138,12 @@ class OperationImage extends DataObject implements PermissionProvider
      *
      * @return bool|int
      */
-    public function canCreate($member = false, $context = array())
+    public function canCreate($member = false, $context = [])
     {
-        if (!$member) {
+        if (! $member) {
             $member = Member:: currentUser();
         }
+
         return Permission:: checkMember($member, 'OPERATIONIMAGE_CREATE');
     }
 
@@ -143,9 +154,10 @@ class OperationImage extends DataObject implements PermissionProvider
      */
     public function canDelete($member = false)
     {
-        if (!$member) {
+        if (! $member) {
             $member = Member::currentUser();
         }
+
         return Permission:: checkMember($member, 'OPERATIONIMAGE_DELETE');
     }
 
@@ -154,12 +166,12 @@ class OperationImage extends DataObject implements PermissionProvider
      */
     public function providePermissions(): array
     {
-        return array(
+        return [
             'OPERATIONIMAGE_VIEW' => 'Einsatzbilder ansehen',
             'OPERATIONIMAGE_EDIT' => 'Einsatzbilder bearbeiten',
             'OPERATIONIMAGE_CREATE' => 'Einsatzbilder erstellen',
-            'OPERATIONIMAGE_DELETE' => 'Einsatzbilder löschen'
-        );
+            'OPERATIONIMAGE_DELETE' => 'Einsatzbilder löschen',
+        ];
     }
 
     /**
@@ -172,7 +184,7 @@ class OperationImage extends DataObject implements PermissionProvider
         }
         parent::onBeforeWrite();
     }
-    
+
     /**
      * publish images after creation
      */
