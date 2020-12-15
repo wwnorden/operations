@@ -8,7 +8,7 @@ use SilverStripe\Admin\ModelAdmin;
  * Administration operations
  *
  * @package wwn-operations
- * @access public
+ * @access  public
  */
 class OperationAdmin extends ModelAdmin
 {
@@ -18,25 +18,29 @@ class OperationAdmin extends ModelAdmin
     private static $menu_icon_class = 'font-icon-rocket';
 
     /**
-     * @var string $menu_title
+     * @var string
      */
     private static $menu_title = 'Einsätze';
 
     /**
-     * @var string $url_segment
+     * @var string
      */
     private static $url_segment = 'einsaetze';
 
     /**
-     * @var array $managed_models
+     * @var string[]
      */
-    private static $managed_models = array(
+    private static $managed_models = [
         'WWN\Operations\OperationArticle',
         'WWN\Operations\OperationLink',
         'WWN\Operations\OperationForce',
         'WWN\Operations\OperationalStatistics',
-    );
+        'WWN\Operations\OperationType',
+    ];
 
+    /**
+     * @var string[]
+     */
     private static $model_importers = [
         OperationArticle::class => OperationsCsvBulkLoader::class,
     ];

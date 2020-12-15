@@ -34,7 +34,7 @@ class OperationArticle extends DataObject
     private static $table_name = 'WWNOperationArticle';
 
     /**
-     * @var array $db
+     * @var string[]
      */
     private static $db = [
         'Title' => 'Varchar(150)',
@@ -46,18 +46,24 @@ class OperationArticle extends DataObject
         'People' => 'Int',
     ];
 
+    /**
+     * @var string[]
+     */
     private static $has_many = [
         'Links' => OperationLink::class,
         'OperationImages' => OperationImage::class,
     ];
 
+    /**
+     * @var string[]
+     */
     private static $many_many = [
         'OperationForces' => OperationForce::class,
         'Vehicles' => Vehicle::class,
     ];
 
     /**
-     * @var array $indexes
+     * @var array[]
      */
     private static $indexes = [
         'SearchFields' => [
@@ -70,7 +76,7 @@ class OperationArticle extends DataObject
     ];
 
     /**
-     * @var string $default_sort
+     * @var string[]
      */
     private static $default_sort = [
         'Begin' => 'DESC',
@@ -78,7 +84,7 @@ class OperationArticle extends DataObject
     ];
 
     /**
-     * @var array $summary_fields
+     * @var string[]
      */
     private static $summary_fields = [
         'Number',
@@ -90,7 +96,7 @@ class OperationArticle extends DataObject
     ];
 
     /**
-     * @var array $searchable_fields
+     * @var string[]
      */
     private static $searchable_fields = [
         'Title',
@@ -124,7 +130,7 @@ class OperationArticle extends DataObject
     }
 
     /**
-     * @return false|string
+     * @return string|null
      */
     public function getBeginFormatted(): ?string
     {
@@ -132,7 +138,7 @@ class OperationArticle extends DataObject
     }
 
     /**
-     * @return false|string
+     * @return string|null
      */
     public function getEndFormatted(): ?string
     {
@@ -184,13 +190,13 @@ class OperationArticle extends DataObject
                 new GridFieldDeleteAction(),
                 new GridFieldOrderableRows('SortOrder'),
                 new GridFieldTitleHeader(),
-                new GridFieldAddExistingAutocompleter('before', array('Title'))
+                new GridFieldAddExistingAutocompleter('before', ['Title'])
             )
         );
         $fields->addFieldsToTab('Root.OperationImages',
-            array(
+            [
                 $images
-            )
+            ]
         );
 
         return $fields;
