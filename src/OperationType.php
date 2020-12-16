@@ -98,7 +98,7 @@ class OperationType extends DataObject implements PermissionProvider
             _t(
                 'WWN\Operations\OperationType.PLURALNAME',
                 'OperationTypes'
-            ).'/'.str_replace('/', '-', $this->Title)
+            ).'/'.str_replace(['/',',','.',' ','_','(',')'], '-', $this->Title)
         );
 
         return $fields;
