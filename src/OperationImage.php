@@ -88,9 +88,10 @@ class OperationImage extends DataObject implements PermissionProvider
         $image = $fields->dataFieldByName('Image');
         $image->setFolderName(
             _t(
-                'WWN\Operations\Extensions\OperationsSiteConfigExtension',
+                'WWN\Operations\Extensions\OperationsSiteConfigExtension.Foldername',
                 'Foldername'
-            ).'/'.str_replace('/', '-', $this->OperationArticle->Number.'-'.$this->OperationArticle->Title)
+            ).'/'.date('Y').'/'.str_replace('/', '-',
+                $this->OperationArticle->Number.'-'.$this->OperationArticle->Title)
         );
 
         return $fields;
