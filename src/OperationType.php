@@ -92,8 +92,12 @@ class OperationType extends DataObject implements PermissionProvider
         $image = $fields->dataFieldByName('Image');
         $image->setFolderName(
             _t(
-                'WWN\Operations\Extensions\OperationsSiteConfigExtension',
+                'WWN\Operations\Extensions\OperationsSiteConfigExtension.Foldername',
                 'Foldername'
+            ).'/'.
+            _t(
+                'WWN\Operations\OperationType.PLURALNAME',
+                'OperationTypes'
             ).'/'.str_replace('/', '-', $this->Title)
         );
 
