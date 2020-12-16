@@ -2,6 +2,7 @@
 
 namespace WWN\Operations;
 
+use SilverStripe\Assets\Image;
 use SilverStripe\Forms\DatetimeField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridField;
@@ -46,6 +47,13 @@ class OperationArticle extends DataObject
         'People' => 'Int',
     ];
 
+    /**
+     * @var string[]
+     */
+    private static $has_one = [
+        'OperationType' => OperationType::class,
+    ];
+    
     /**
      * @var string[]
      */
