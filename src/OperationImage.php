@@ -90,7 +90,7 @@ class OperationImage extends DataObject implements PermissionProvider
             _t(
                 'WWN\Operations\Extensions\OperationsSiteConfigExtension.Foldername',
                 'Foldername'
-            ).'/'.date('Y').'/'.str_replace('/', '-',
+            ).'/'.date('Y').'/'.str_replace(['/',',','.',' ','_','(',')'], '-',
                 $this->OperationArticle->Number.'-'.$this->OperationArticle->Title)
         );
 
