@@ -150,6 +150,12 @@ class OperationArticle extends DataObject
      */
     public function getEndFormatted(): ?string
     {
+        if (!$this->End){
+            return _t(
+                'WWN\Operations\OperationArticle.DateEndUnknown',
+                'unknown'
+            );
+        }
         return $this->formatDateTime('End');
     }
 
