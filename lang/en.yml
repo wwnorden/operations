@@ -21,6 +21,7 @@ de:
     DateTimeFormat: 'm/d/Y H:m'
     DateTimeFormatList: 'm/d/Y H:i'
     DateTimeDateDescription: 'Datetime in the following form {format}'
+    DateEndUnknown: 'unknown'
     prev: 'Previous'
     next: 'Next'
     PLURALNAME: 'Operations'
