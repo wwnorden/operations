@@ -53,7 +53,7 @@ class OperationArticle extends DataObject
     private static $has_one = [
         'OperationType' => OperationType::class,
     ];
-    
+
     /**
      * @var string[]
      */
@@ -186,7 +186,7 @@ class OperationArticle extends DataObject
         // sorting images
         $images = GridField::create(
             'OperationImages',
-            _t('WWN\Operations\OperationImage.PLURALNAME','Operation images'),
+            _t('WWN\Operations\OperationArticle.has_many_OperationImages', 'Operation images'),
             $this->OperationImages(),
             GridFieldConfig::create()->addComponents(
                 new GridFieldToolbarHeader(),
@@ -201,9 +201,10 @@ class OperationArticle extends DataObject
                 new GridFieldAddExistingAutocompleter('before', ['Title'])
             )
         );
-        $fields->addFieldsToTab('Root.OperationImages',
+        $fields->addFieldsToTab('Root.'._t('WWN\Operations\OperationArticle.has_many_OperationImages',
+                'Operation images'),
             [
-                $images
+                $images,
             ]
         );
 
