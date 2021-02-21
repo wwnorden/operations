@@ -2,7 +2,7 @@
 
 namespace WWN\Operations;
 
-use SilverStripe\Assets\Image;
+use SilverStripe\Control\Director;
 use SilverStripe\Forms\DatetimeField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridField;
@@ -16,7 +16,8 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldToolbarHeader;
 use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\ORM\FieldType\DBDatetime;
+use SilverStripe\ORM\HasManyList;
+use SilverStripe\ORM\ManyManyList;
 use Symbiote\GridFieldExtensions\GridFieldOrderableRows;
 use Symbiote\GridFieldExtensions\GridFieldTitleHeader;
 use WWN\Vehicles\Vehicle;
@@ -25,7 +26,17 @@ use WWN\Vehicles\Vehicle;
  * OperationArticle
  *
  * @package wwn-operations
- * @access  public
+ * @property string $Title
+ * @property string $Content
+ * @property string $Number
+ * @property string $Location
+ * @property string $Begin
+ * @property string $End
+ * @property int    $People
+ * @method HasManyList Links()
+ * @method HasManyList OperationImages()
+ * @method ManyManyList OperationForces()
+ * @method ManyManyList Vehicles()
  */
 class OperationArticle extends DataObject
 {
@@ -150,12 +161,13 @@ class OperationArticle extends DataObject
      */
     public function getEndFormatted(): ?string
     {
-        if (!$this->End){
+        if (! $this->End) {
             return _t(
                 'WWN\Operations\OperationArticle.DateEndUnknown',
                 'unknown'
             );
         }
+
         return $this->formatDateTime('End');
     }
 
@@ -207,12 +219,7 @@ class OperationArticle extends DataObject
                 new GridFieldAddExistingAutocompleter('before', ['Title'])
             )
         );
-        $fields->addFieldsToTab('Root.'._t('WWN\Operations\OperationArticle.has_many_OperationImages',
-                'Operation images'),
-            [
-                $images,
-            ]
-        );
+        $fields->addFieldsToTab('Root.OperationImages', [$images]);
 
         return $fields;
     }
