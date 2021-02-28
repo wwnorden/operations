@@ -2,6 +2,7 @@
 
 namespace WWN\Operations;
 
+use DateTime;
 use SilverStripe\Assets\Image;
 use SilverStripe\Assets\Storage\DBFile;
 use SilverStripe\Forms\FieldList;
@@ -85,12 +86,15 @@ class OperationImage extends DataObject implements PermissionProvider
         $fields->removeByName('OperationArticleID');
         $fields->removeByName('SortOrder');
 
+        $date = new DateTime($this->OperationArticle->Begin);
+        $year = $date->format('Y') ?? date('Y');
+        
         $image = $fields->dataFieldByName('Image');
         $image->setFolderName(
             _t(
                 'WWN\Operations\Extensions\OperationsSiteConfigExtension.Foldername',
                 'Foldername'
-            ).'/'.date('Y').'/'.str_replace(['/',',','.',' ','_','(',')'], '-',
+            ).'/'.$year.'/'.str_replace(['/',',','.',' ','_','(',')'], '-',
                 $this->OperationArticle->Number.'-'.$this->OperationArticle->Title)
         );
 
