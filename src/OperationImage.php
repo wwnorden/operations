@@ -16,7 +16,9 @@ use SilverStripe\Security\PermissionProvider;
  * OperationImage
  *
  * @package wwn-operations
- * @access  public
+ * @property string $Title
+ * @property int    $SortOrder
+ * @property bool   Cover
  */
 class OperationImage extends DataObject implements PermissionProvider
 {
@@ -186,6 +188,9 @@ class OperationImage extends DataObject implements PermissionProvider
     {
         if (! $this->SortOrder) {
             $this->SortOrder = OperationImage::get()->max('SortOrder') + 1;
+        }
+        if (empty($this->Title)){
+            $this->Title = $this->owner->Image()->Title ?? $this->owner->Image()->Name;
         }
         parent::onBeforeWrite();
     }
