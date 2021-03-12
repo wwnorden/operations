@@ -14,7 +14,7 @@ de:
     has_one_OperationType: 'Einsatzart'
     has_many_Links: 'Links'
     has_many_OperationImages: 'Einsatzbilder'
-    many_many_OperationForces: 'Einsatzkräfte'
+    many_many_OperationForces: 'Weitere Einsatzkräfte'
     many_many_Vehicles: 'Fahrzeuge'
     clock: 'Uhr'
     ContentTab: 'Inhalt'
