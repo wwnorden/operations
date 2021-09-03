@@ -67,6 +67,7 @@ de:
   WWN\Operations\OperationalStatistics:
     db_Number: 'Anzahl Einsätze'
     db_Year: 'Jahr'
+    has_one_Image: 'Bild'
     YearFormat: 'yyyy'
     YearDescription: 'Angabe in folgendem Format {format}'
     PLURALNAME: 'Einsatzstatistiken'
