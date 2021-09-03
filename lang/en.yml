@@ -67,6 +67,7 @@ de:
   WWN\Operations\OperationalStatistics:
     db_Number: 'Number operations'
     db_Year: 'Year'
+    has_one_Image: 'Image'
     YearFormat: 'yyyy'
     YearDescription: 'Date in the following form {format}'
     PLURALNAME: 'Operational statistics'
