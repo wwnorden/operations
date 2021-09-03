@@ -70,13 +70,13 @@ class OperationPageController extends PageController
                 ->filter('Year:StartsWith', $year)
                 ->first();
 
+            $image = $this->getCoverImage($year)->Image ?? $statsPerYear->Image ?? false;
             $operationsPerYear->push(
                 new ArrayData(
                     [
                         'Year' => $year,
-                        'Operations' => $statsPerYear->Number ??
-                            $numberOperations,
-                        'Image' => $statsPerYear->Image,
+                        'Operations' => $statsPerYear->Number != 0 ? $statsPerYear->Number : $numberOperations,
+                        'Image' => $image,
                     ]
                 )
             );
