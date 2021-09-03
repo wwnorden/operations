@@ -2,6 +2,7 @@
 
 namespace WWN\Operations;
 
+use SilverStripe\Assets\Image;
 use SilverStripe\CMS\Forms\SiteTreeURLSegmentField;
 use SilverStripe\Forms\DateField;
 use SilverStripe\Forms\DatetimeField;
@@ -31,6 +32,12 @@ class OperationalStatistics extends DataObject
         'Year' => 'Date',
         'Number' => 'Int',
     ];
+    /**
+     * @var string[]
+     */
+    private static $has_one = [
+        'Image' => Image::class,
+    ];
 
     /**
      * @var string
@@ -53,6 +60,13 @@ class OperationalStatistics extends DataObject
     private static $searchable_fields = [
         'Year',
         'Number',
+    ];
+
+    /**
+     * @var string[]
+     */
+    private static $owns = [
+        'Image',
     ];
 
     /**
@@ -121,6 +135,16 @@ class OperationalStatistics extends DataObject
         );
         $mainFields['Year'] = $year;
         $fields->addFieldsToTab('Root.Main', $mainFields);
+
+        $date = new \DateTime($this->Year);
+        $date = $date->format('Y');
+        $image = $fields->dataFieldByName('Image');
+        $image->setFolderName(
+            _t(
+                'WWN\Operations\Extensions\OperationsSiteConfigExtension.Foldername',
+                'Foldername'
+            ).'/'.str_replace(['/', ',', '.', ' ', '_', '(', ')'], '-', $date)
+        );
 
         return $fields;
     }

@@ -76,7 +76,7 @@ class OperationPageController extends PageController
                         'Year' => $year,
                         'Operations' => $statsPerYear->Number ??
                             $numberOperations,
-                        'Image' => $this->getCoverImage($year),
+                        'Image' => $statsPerYear->Image,
                     ]
                 )
             );
