@@ -57,15 +57,30 @@ class OperationPageController extends PageController
      */
     public function PaginatedOperationsPerYear()
     {
-        $result = DB::query(
+        $results = DB::query(
             'SELECT YEAR(Begin) as Year,
-                COUNT(*) AS Operations
+                Number AS Operations
                 FROM WWNOperationArticle
-                GROUP BY Year
-                ORDER By Year DESC')->map();
+                ORDER By Begin DESC');
+
+        $yearToOpertaions = [];
+        foreach ($results as $result) {
+            $numberOperations = $result['Operations'];
+            if (strpos($result['Operations'], '-') !== false) {
+                $strArray = explode('-', $numberOperations);
+                $numberOperations = $strArray[1];
+            }
+            if (isset($yearToOpertaions[$result['Year']])) {
+                if ($numberOperations > $yearToOpertaions[$result['Year']]) {
+                    $yearToOpertaions[$result['Year']] = $numberOperations;
+                }
+            } else {
+                $yearToOpertaions[$result['Year']] = $numberOperations;
+            }
+        }
 
         $operationsPerYear = new ArrayList();
-        foreach ($result as $year => $numberOperations) {
+        foreach ($yearToOpertaions as $year => $opertaions) {
             $statsPerYear = OperationalStatistics::get()
                 ->filter('Year:StartsWith', $year)
                 ->first();
@@ -75,11 +90,12 @@ class OperationPageController extends PageController
                 new ArrayData(
                     [
                         'Year' => $year,
-                        'Operations' => $statsPerYear->Number != 0 ? $statsPerYear->Number : $numberOperations,
+                        'Operations' => $statsPerYear->Number ?? $statsPerYear->Number ?? $opertaions,
                         'Image' => $image,
                     ]
                 )
             );
+            continue;
         }
 
         return $operationsPerYear;

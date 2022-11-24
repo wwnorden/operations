@@ -51,7 +51,7 @@ class OperationArticle extends DataObject
     private static $db = [
         'Title' => 'Varchar(150)',
         'Content' => 'HTMLText',
-        'Number' => 'Varchar(3)',
+        'Number' => 'Varchar(150)',
         'Location' => 'Varchar(255)',
         'Begin' => 'DBDatetime',
         'End' => 'DBDatetime',
@@ -120,6 +120,9 @@ class OperationArticle extends DataObject
     private static $searchable_fields = [
         'Title',
         'Content',
+        'Number',
+        'Location',
+        'Begin',
     ];
 
     /**
@@ -262,7 +265,12 @@ class OperationArticle extends DataObject
      */
     public function getCMSValidator(): RequiredFields
     {
-        return RequiredFields::create('Title');
+        return RequiredFields::create([
+            'Title',
+            'Number',
+            'Location',
+            'Begin',
+        ]);
     }
 
     /**
